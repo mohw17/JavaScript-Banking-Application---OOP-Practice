@@ -1,6 +1,5 @@
-// ==========================================
-// 1. Transaction Class
-// ==========================================
+
+
 class Transaction {
     constructor(amount, date) {
         this.amount = amount;
@@ -8,9 +7,9 @@ class Transaction {
     }
 }
 
-// ==========================================
-// 2. Customer Class
-// ==========================================
+
+
+
 class Customer {
     constructor(name, id) {
         this.name = name;
@@ -31,18 +30,19 @@ class Customer {
     }
 
     getBalance() {
-        // Calculate total balance from all transactions
+
         const total = this.transactions.reduce((sum, trans) => sum + trans.amount, 0);
-        return total < 0 ? 0 : total; // Balance cannot be negative
+        return total < 0 ? 0 : total; 
     }
 
     addTransactions(amount) {
-        // Validation: Ensure amount is a valid number
+
+
         if (typeof amount !== 'number' || isNaN(amount)) {
             return false;
         }
 
-        // Prevent balance from going negative
+
         const currentBalance = this.getBalance();
         if (currentBalance + amount < 0) {
             console.log(`Transaction failed for ${this.name}: Insufficient funds.`);
@@ -56,8 +56,7 @@ class Customer {
 }
 
 // ==========================================
-// 3. Branch Class
-// ==========================================
+
 class Branch {
     constructor(name) {
         this.name = name;
@@ -73,7 +72,8 @@ class Branch {
     }
 
     addCustomer(customer) {
-        // Validation & check if customer already exists in this branch
+
+
         if (!customer || !(customer instanceof Customer)) return false;
         
         const exists = this.customers.some(c => c.getId() === customer.getId());
@@ -93,9 +93,7 @@ class Branch {
     }
 }
 
-// ==========================================
-// 4. Bank Class
-// ==========================================
+
 class Bank {
     constructor(name) {
         this.name = name;
@@ -160,49 +158,48 @@ class Bank {
     }
 }
 
-// ==========================================
-// Running Test Code (AlInma, AlRajhi, AlAhli)
+
 // ==========================================
 
-// 1. Creating Banks (AlInma, AlRajhi, AlAhli)
+
 const alInmaBank = new Bank("AlInma Bank");
 const alRajhiBank = new Bank("AlRajhi Bank");
 const alAhliBank = new Bank("AlAhli Bank");
 
-// 2. Creating Branches
+
+
 const gharbiBranch = new Branch("Al-Gharbi Branch");
 const shurooqBranch = new Branch("Al-Shurooq Branch");
 const olayaBranch = new Branch("Al-Olaya Branch");
 
-// 3. Creating Customers (Arabic names written in English)
+
+
 const customer1 = new Customer("Ahmad", 1);
 const customer2 = new Customer("Sara", 2);
 const customer3 = new Customer("Khaled", 3);
 
-// 4. Adding Branches to AlInma Bank
+
 alInmaBank.addBranch(gharbiBranch);
 alInmaBank.addBranch(shurooqBranch);
-alInmaBank.addBranch(gharbiBranch); // Duplicate check (returns false)
-
-// 5. Searching Branches
+alInmaBank.addBranch(gharbiBranch);
 console.log("Search 'Gharbi':", alInmaBank.findBranchByName("Gharbi"));
 console.log("Search 'Shurooq':", alInmaBank.findBranchByName("Shurooq"));
 
-// 6. Adding Customers to Branches
+
 alInmaBank.addCustomer(gharbiBranch, customer1);
 alInmaBank.addCustomer(gharbiBranch, customer3);
 alInmaBank.addCustomer(shurooqBranch, customer1);
 alInmaBank.addCustomer(shurooqBranch, customer2);
 
-// 7. Adding Transactions
+
 alInmaBank.addCustomerTransaction(gharbiBranch, customer1.getId(), 3000);
 alInmaBank.addCustomerTransaction(gharbiBranch, customer1.getId(), 2000);
 alInmaBank.addCustomerTransaction(gharbiBranch, customer2.getId(), 3000);
 
-// 8. Testing Balance & Withdrawals
+
 customer1.addTransactions(-1000);
 console.log("\nAhmad's Balance:", customer1.getBalance());
 
-// 9. Printing Customer Lists
+
 alInmaBank.listCustomers(gharbiBranch, true);
 alInmaBank.listCustomers(shurooqBranch, true);
